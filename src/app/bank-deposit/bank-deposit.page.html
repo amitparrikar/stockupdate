@@ -1,0 +1,95 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+      Money Calculator
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+  
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col col="3" offset="2">
+        <ion-item>
+          <ion-label position="floating">2000 x</ion-label>
+          <ion-input type="number" [(ngModel)]="c_2000"></ion-input>
+        </ion-item>
+      </ion-col>
+      <ion-col col="2" class="amount">=&nbsp;&nbsp;  {{c_2000*2000}}</ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col col="3" offset="2">
+        <ion-item>
+          <ion-label position="floating">500 x</ion-label>
+          <ion-input type="number" [(ngModel)]="c_500"></ion-input>
+        </ion-item>
+      </ion-col>
+      <ion-col col="2" class="amount">=&nbsp;&nbsp;{{c_500*500}}</ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col col="3" offset="2">
+        <ion-item>
+          <ion-label position="floating">200 x</ion-label>
+          <ion-input type="number" [(ngModel)]="c_200"></ion-input>
+        </ion-item>
+      </ion-col>
+      <ion-col col="2" class="amount">=&nbsp;&nbsp;{{c_200*200}}</ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col col="3" offset="2">
+        <ion-item>
+          <ion-label position="floating">100 x</ion-label>
+          <ion-input type="number" [(ngModel)]="c_100"></ion-input>
+        </ion-item>
+      </ion-col>
+      <ion-col col="2" class="amount">=&nbsp;&nbsp;{{c_100*100}}</ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col col="3" offset="2">
+        <ion-item>
+          <ion-label position="floating">50 x</ion-label>
+          <ion-input type="number" [(ngModel)]="c_50"></ion-input>
+        </ion-item>
+      </ion-col>
+      <ion-col col="2" class="amount">=&nbsp;&nbsp;{{c_50*50}}</ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col col="3" offset="2">
+        <ion-item>
+          <ion-label position="floating">20 x</ion-label>
+          <ion-input type="number" [(ngModel)]="c_20"></ion-input>
+        </ion-item>
+      </ion-col>
+      <ion-col col="2" class="amount">=&nbsp;&nbsp;{{c_20*20}}</ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col col="3" offset="2">
+        <ion-item>
+          <ion-label position="floating">10 x</ion-label>
+          <ion-input type="number" [(ngModel)]="c_10"></ion-input>
+        </ion-item>
+      </ion-col>
+      <ion-col col="2" class="amount">=&nbsp;&nbsp;{{c_10*10}}</ion-col>
+    </ion-row>
+    <!-- <ion-row>
+      <ion-col col="3" offset="2">
+        <ion-item>
+          <ion-label position="floating">1 x</ion-label>
+          <ion-input type="number" [(ngModel)]="c_1"></ion-input>
+        </ion-item>
+      </ion-col>
+      <ion-col col="2" class="amount">=  {{c_1*1}}</ion-col>
+    </ion-row> -->
+    <ion-row style="margin-top: 15px;">
+      <ion-col col="3" offset="2">
+        <ion-label class="total-amt">Total</ion-label>
+      </ion-col>
+      <ion-col col="2" class="total-amt">Rs. {{ c_2000*2000 + c_500*500 + c_200*200 + c_100*100 + c_50*50 + c_20*20 + c_10*10 }}
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+</ion-content>

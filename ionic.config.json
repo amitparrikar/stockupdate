@@ -1,5 +1,8 @@
 {
   "name": "StockUpdate",
-  "integrations": {},
+  "integrations": {
+    "cordova": {},
+    "capacitor": {}
+  },
   "type": "angular"
 }

@@ -1,0 +1,36 @@
+
+.can-label {
+    padding: 10px 0 0 15px;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.prod-label {
+    position: absolute;
+    right: 8px;
+    top: 9px;
+}
+
+.btn-save {
+    position: absolute;
+    right: 0;
+    top: 0;
+    margin: 10px;
+}
+
+ion-card-header {
+    height: 35px;
+
+    &.Petrol {
+        background-color: #dbffdb;
+    }
+
+    &.Diesel {
+        background-color: #dce9ffb0;
+    }
+
+    &.Speed {
+        background-color: #fffedbb8;
+    }
+
+}

@@ -1,14 +1,94 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
     <ion-title>
-      Ionic Blank
+      Stock/Sale Update
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <div class="ion-padding">
-    The world is your oyster.
-    <p>If you get lost, the <a target="_blank" rel="noopener" href="https://ionicframework.com/docs/">docs</a> will be your guide.</p>
-  </div>
+  <ion-grid  class="text-center">
+    <ion-row class="margin-bottom-25">
+      <!-- <ion-col size="4">
+        <ion-item class="settings">
+          <ion-label position="floating">Dealer Code</ion-label>
+          <ion-input [disabled]="isDisabled" type="number" [(ngModel)]="dealerCode" (ionBlur)="saveDealerCode()"></ion-input>
+        </ion-item>
+      </ion-col> -->
+      <!-- <ion-col size="4">
+        
+      </ion-col> -->
+      <ion-col size="4" offset="8">
+          <ion-label class="date-time">{{date}}</ion-label>
+      </ion-col>
+    </ion-row>
+    <br><br>
+    <ion-row class="header">
+      <ion-col align-self-center></ion-col>
+      <ion-col align-self-center style="border-right: 1px solid #eeeeee;">
+        <ion-text>STOCK <span class="ltr-label">(Ltr)</span></ion-text>
+      </ion-col>
+      <ion-col align-self-center>
+          <ion-text>SALE <span class="ltr-label">(Ltr)</span></ion-text>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col class="product-name petrol"><ion-text>PETROL</ion-text></ion-col>
+      <ion-col>
+        <ion-item>
+          <ion-input type="number" [(ngModel)]="msStock"></ion-input>
+        </ion-item>
+      </ion-col>
+      <ion-col>
+        <ion-item>
+          <ion-input type="number" [(ngModel)]="msSale"></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col class="product-name diesel"><ion-text>DIESEL</ion-text></ion-col>
+      <ion-col>
+        <ion-item>
+          <ion-input type="number" [(ngModel)]="hsdStock"></ion-input>
+        </ion-item>
+      </ion-col>
+      <ion-col>
+        <ion-item>
+          <ion-input type="number" [(ngModel)]="hsdSale"></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col class="product-name speed"><ion-text>SPEED</ion-text></ion-col>
+      <ion-col>
+        <ion-item>
+          <ion-input type="number" [(ngModel)]="spStock"></ion-input>
+        </ion-item>
+      </ion-col>
+      <ion-col>
+        <ion-item>
+          <ion-input type="number" [(ngModel)]="spSale"></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row style="padding-top: 25px">
+      <ion-col>
+          <ion-button medium  color="danger" (click)="onClear()">Clear</ion-button>
+      </ion-col>
+      <ion-col>
+          <ion-button medium color="primary" (click)="onSendSMS()">Send SMS</ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <!-- <div class="footer">
+    <ion-label>
+      Made with <span style="font-size: 15px; color: red;">&hearts;</span> by <i>Parrikar Petro Services, Goa</i>
+    </ion-label>
+  </div> -->
 </ion-content>

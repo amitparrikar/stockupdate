@@ -1,0 +1,36 @@
+
+/* @media print { */
+    /* .pdfPrint { */
+        /* .data-value {
+            font-weight: bold;
+            font-size: 30pt;
+        }
+    
+        .data-property {
+            font-size: 20pt;
+        }
+        .header-sub-title {
+            font-size: 11pt;
+            font-weight: bold;
+        }
+        .header-title {
+            font-size:  50pt;
+            text-align: center;
+            font-weight: bold;
+            display: none;
+        }
+        .side-sections {
+            display: block;
+            width: 175%;
+            height: 22%;
+            border: 1em solid black;
+        }
+        .one {
+            transform: translate(-31cm, 400cm) rotate(90deg);
+        }
+    
+        .two {
+            transform: translate(-80px, 200px) rotate(90deg);
+        } */
+    /* } */
+    /* } */

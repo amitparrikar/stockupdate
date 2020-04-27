@@ -1,0 +1,595 @@
+<html>
+    <head>
+    </head>
+    <body>
+        <style>
+            .left-pane { width: 59%; float:left; padding-right: 5px; }
+            .right-pane { width: 40%; float: left; }
+            @page {
+                margin-bottom: 2cm;
+            }
+            @media print {
+
+                *{ color: lightgrey; }
+                .parent { display: block; }
+                .pb_after  { page-break-after: always !important; }
+                
+                .p-margin-top-3 { margin-top: 3cm; }
+                .header-title {
+                    font-size:  17pt;
+                    text-align: center;
+                    font-weight: bold;
+                    color: black;
+                }
+                .header-sub-title {
+                    font-size: 12pt;
+                    font-weight: bold;
+                    text-align: center;
+                    margin: 10px 0 0 0;
+                }
+                .data-value {
+                    font-weight: bold;
+                    font-size: 10pt;
+                    display: inline-block;
+                    margin: 10px 0 0 0;
+                    color: #848484;
+                }
+                .data-property {
+                    font-size: 10pt;
+                    display: inline-block;
+                    margin: 10px 0 0 0;
+                    text-align: center;
+                    padding-right: 5px;
+                    color: #848484;
+                }
+                .keyName {
+                    display: inline-block;
+                    font-size: 10pt;
+                    margin-top: 10px;
+                }
+                .keyValue {
+                    display: inline-block;
+                    font-size: 10pt;
+                    font-weight: bold;
+                    padding-left: 15px;
+                    margin-top: 10px;
+                    color: #848484;
+                }
+                .statement {
+                    font-size: 12pt;
+                    margin: 2mm 0 15mm 0;
+                    font-style: italic;
+                }
+            }
+        </style>
+        <div id="parent" class="parent"></div>
+
+        <script>
+            var finalInnerHtml = '';
+            const dateVal = Date().split(' ');
+            const curDate = `${dateVal[2]} ${dateVal[1]} ${dateVal[3]}`;
+            const curTime = dateVal[4];
+            var TEMPLATE = `<div class="pb_after">
+                <div class="left-pane">
+                    <table style="width: 100%">
+                        <tr>
+                        <td colspan="4" class="header-title">TERRITORY_NAME</td>
+                        </tr>
+                        <tr>
+                        <td colspan="4" style="text-align: center;">
+                            <p class="header-sub-title">Tank Lorry Retention Sample</p>
+                            <p>Drawn at Retail Outlets</p>
+                        </td>
+                        </tr>
+                    </table>
+                    <table class="p-margin-top-3" style="width: 100%">
+                        <tr>
+                        <td class="keyName">1) Supply Location:</td>
+                        <td class="keyValue">SUPPLY_LOCATION</td>
+                        </tr>
+                        <tr>
+                        <td class="keyName">2) Territory Office:</td>
+                        <td class="keyValue">TERRITORY_OFFICE</td>
+                        </tr>
+                        <tr>
+                        <td class="keyName">3) Name of RO:</td>
+                        <td class="keyValue">RO_NAME</td>
+                        </tr>
+                        <tr>
+                        <td class="keyName">4) Address of RO:</td>
+                        <td class="keyValue">RO_ADDRESS</td>
+                        </tr>
+                        <tr>
+                        <td class="keyName">5) Oil Company:</td>
+                        <td class="keyValue">OIL_COMPANY_NAME</td>
+                        </tr>
+                        <tr>
+                        <td class="keyName">6) Product Name:</td>
+                        <td class="keyValue">PRODUCT_NAME</td>
+                        </tr>
+                        <tr>
+                        <td class="keyName">7) Source of Sample:</td>
+                        <td class="keyValue">TANK LORRY</td>
+                        </tr>
+                        <tr>
+                        <td class="keyName">8) Tank Lorry Number:</td>
+                        <td class="keyValue">VEHICLE_NUMBER</td>
+                        </tr>
+                        <tr>
+                        <td class="keyName">9) Samples date & time</td>
+                        <td class="keyValue">SAMPLE_DATE at SAMPLE_TIME</td>
+                        </tr>
+                        <tr>
+                            <td class="keyName">10) Density as recorderd in the challan:</td>
+                            <td class="keyValue">INVOICE_DENSITY</td>
+                        </tr>
+                        <tr>
+                            <td class="keyName">11) Density of sample collected from the lorry:</td>
+                            <td class="keyValue">SAMPLE_DENSITY</td>
+                        </tr>
+                        <tr>
+                            <td class="keyName">12) RO Tank No. of Product Decanted:</td>
+                            <td class="keyValue">DECANT_DETAIL</td>
+                        </tr>
+                        <tr>
+                            <td class="keyName">13) Aluminium Container Seal Number:</td>
+                            <td class="keyValue">ALUMINIUM_SEAL</td>
+                        </tr>
+                        <tr>
+                            <td class="keyName">14) Wooden Container Seal Number:</td>
+                            <td class="keyValue">WODDEN_SEAL</td>
+                        </tr>
+                        <tr>
+                            <td class="keyName">15) Invoice Number:</td>
+                            <td class="keyValue">INVOICE_NUMBER</td>
+                        </tr>
+                        <tr>
+                            <td class="keyName">16) Invoice Date:</td>
+                            <td class="keyValue">INVOICE_DATE</td>
+                        </tr>
+                        <tr>
+                        <td class="statement" colspan="2">
+                            Certified that empty containers has been rinsed with the<br>
+                            product before drawing of samples in my presence and<br>
+                            the sample is retained after proper labelling and sealing.
+                        </td>
+                        </tr>
+                        <tr>
+                            <td class="keyName">17) Signature & Seal:</td>
+                            <td class="keyValue" style="margin-top: 10mm">___________________________</td>
+                        </tr>
+                        <tr>
+                            <td class="keyName">18) Dealer/Manager's Name:</td>
+                            <td class="keyValue">DEALER_NAME</td>
+                        </tr>
+                        <tr>
+                            <td class="keyName">19) Driver's Name:</td>
+                            <td class="keyValue">DRIVER_NAME</td>
+                        </tr>
+                        <tr>
+                            <td class="keyName">20) Signature of Driver:</td>
+                            <td class="keyValue" style="margin-top: 10mm">___________________________</td>
+                        </tr>
+                        <tr>
+                            <td class="keyName">21) Transporter's Name:</td>
+                            <td class="keyValue">TRANSPORTER_NAME</td>
+                        </tr>
+                        <tr>
+                            <td class="keyName">22) Place & Date:</td>
+                            <td class="keyValue">PLACE_DATE</td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="right-pane">
+                    <table style="width: 100%">
+                        <tr>
+                        <td colspan="2" class="header-title">TERRITORY_NAME</td>
+                        </tr>
+                        <tr>
+                        <td colspan="2" class="header-sub-title">Tank Lorry Retention Sample</td>
+                        </tr>
+                        <tr>
+                        <td class="data-property">Supply Location:</td>
+                        <td class="data-value">SUPPLY_LOCATION</td>
+                        </tr>
+                        <tr>
+                        <td class="data-property">Territory Office:</td>
+                        <td class="data-value">TERRITORY_OFFICE</td>
+                        </tr>
+                    </table>
+                    <table style="width: 100%">
+                        <tr>
+                            <td class="data-property">Name of RO:</td>
+                            <td class="data-value">RO_NAME</td>
+                        </tr>
+                        <tr>
+                            <td class="data-property">Address of RO:</td>
+                            <td class="data-value">RO_ADDRESS</td>
+                        </tr>
+                        <tr>
+                            <td class="data-property">Product Name:</td>
+                            <td class="data-value">PRODUCT_NAME</td>
+                        </tr>
+                        <tr>
+                            <td class="data-property">Source of Sample:</td>
+                            <td class="data-value">Tank Lorry</td>
+                        </tr>
+                        <tr>
+                            <td class="data-property">Tank Lorry Number:</td>
+                            <td class="data-value">VEHICLE_NUMBER</td>
+                        </tr>
+                        <tr>
+                            <td class="data-property">Sample's Date & Time</td>
+                            <td class="data-value">SAMPLE_DATE @ SAMPLE_TIME</td>
+                        </tr>
+                        <tr>
+                            <td class="data-property">Oil Company:</td>
+                            <td class="data-value">OIL_COMPANY_NAME</td>
+                        </tr>
+                        <tr>
+                            <td class="data-property">Density as recorded in Challan:</td>
+                            <td class="data-value">INVOICE_DENSITY</td>
+                        </tr>
+                        <tr>
+                            <td class="data-property">Density as observed in Sample:</td>
+                            <td class="data-value">SAMPLE_DENSITY</td>
+                        </tr>
+                        <tr>
+                            <td class="data-property">RO Tank No:</td>
+                            <td class="data-value">DECANT_DETAIL</td>
+                        </tr>
+                        <tr>
+                            <td class="data-property">Volume Decanted:</td>
+                            <td class="data-value">DECANT_DETAIL</td>
+                        </tr>
+                        <tr>
+                            <td class="data-property">Aluminium Container Seal Num.:</td>
+                            <td class="data-value">ALUMINIUM_SEAL</td>
+                        </tr>
+                        <tr>
+                            <td class="data-property">Wooden Container Seal Num.:</td>
+                            <td class="data-value">WODDEN_SEAL</td>
+                        </tr>
+                        <tr>
+                            <td class="data-property">Invoice Number:</td>
+                            <td class="data-value">INVOICE_NUMBER</td>
+                        </tr>
+                        <tr>
+                            <td class="data-property">Invoice Date:</td>
+                            <td class="data-value">INVOICE_DATE</td>
+                        </tr>
+                        <tr>
+                            <td class="statement" colspan="2" style="font-size: 9pt;">
+                            Certified that empty containers has been rinsed with the<br>
+                            product before drawing of samples in my presence and<br>
+                            the sample is retained after proper labelling and sealing.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="data-property" style="margin-top: 10mm">Signature & Seal:</td>
+                            <td class="data-value" style="margin-top: 10mm">__________________________</td>
+                        </tr>
+                        <tr>
+                            <td class="data-property">Dealer/Manager Name:</td>
+                            <td class="data-value">DEALER_NAME</td>
+                        </tr>
+                        <tr>
+                            <td class="data-property" style="margin-top: 6mm">Driver's Signature:</td>
+                            <td class="data-value" style="margin-top: 6mm">__________________________</td>
+                        </tr>
+                        <tr>
+                            <td class="data-property">Driver's Name</td>
+                            <td class="data-value">DRIVER_NAME</td>
+                        </tr>
+                        <tr>
+                            <td class="data-property">Transporter's Name:</td>
+                            <td class="data-value">TRANSPORTER_NAME</td>
+                        </tr>
+                        <tr>
+                            <td class="data-property">Date & Place:</td>
+                            <td class="data-value">PLACE_DATE</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>`;
+
+            function formatData(data, index, productName) {
+                const dateVal = Date(data.invoiceDate).split(' ');
+                const invoiceDate = `${dateVal[2]} ${dateVal[1]} ${dateVal[3]}`;
+
+                return {
+                    'TERRITORY_NAME': data.territoryOffice + ' Territory',
+                    'SUPPLY_LOCATION': data.supplyLocation,
+                    'TERRITORY_OFFICE': data.territoryOffice,
+                    'RO_NAME': data.roName,
+                    'RO_ADDRESS': data.roAddress,
+                    'OIL_COMPANY_NAME': data.oilCompany,
+                    'PRODUCT_NAME': productName,
+                    'VEHICLE_NUMBER': data.vehicleNumber,
+                    'SAMPLE_DATE': curDate,
+                    'SAMPLE_TIME': curTime,
+                    'INVOICE_DENSITY': data[productName.toLowerCase()].invoiceDensity,
+                    'SAMPLE_DENSITY': data[productName.toLowerCase()].invoiceDensity,
+                    'DECANT_DETAIL': data[`${productName.toLowerCase()}Can`][index].decantDetail,
+                    'ALUMINIUM_SEAL': data[`${productName.toLowerCase()}Can`][index].aluminiumBoxSeal,
+                    'WODDEN_SEAL': data[`${productName.toLowerCase()}Can`][index].woodenBoxSeal,
+                    'INVOICE_NUMBER': data.invoiceNumber,
+                    'INVOICE_DATE': invoiceDate,
+                    'DEALER_NAME': data.dealerName,
+                    'DRIVER_NAME': data.driverName,
+                    'TRANSPORTER_NAME': data.transportName,
+                    'PLACE_DATE': `${data.roAddress.split(',')[1]} on ${curDate}`
+                }
+            }
+
+            function formatHtml(data, index) {
+                var regExp = new RegExp(Object.keys(data).join("|"),"gi");
+
+                return TEMPLATE.replace(regExp, function(matched) {
+                    return data[matched];
+                });
+            }
+
+            window.addEventListener('message', (event) => {
+                finalInnerHtml = '';
+                //For MS
+                event.data.msCan.forEach((item, indx) => {
+                    const data = formatData(event.data, indx, 'MS');
+
+                    finalInnerHtml += formatHtml(data);
+                });
+
+                //For HSD
+                event.data.hsdCan.forEach((item, indx) => {
+                    const data = formatData(event.data, indx, 'HSD');
+
+                    finalInnerHtml += formatHtml(data);
+                });
+
+                //For SPEED
+                event.data.speedCan.forEach((item, indx) => {
+                    const data = formatData(event.data, indx, 'SPEED');
+
+                    finalInnerHtml += formatHtml(data);
+                });
+
+                // Append final inner HTML
+                var parentElem = document.getElementById('parent');
+                parentElem.innerHTML = finalInnerHtml;
+                // window.print();
+            });
+        </script>
+    </body>
+</html>
+<!-- 
+    var template = {
+      styles: {
+          headerRow: {
+              border: [false, false, false, false],
+              alignment: 'center'
+          },
+          header: {
+              fontSize: 15,
+              bold: true
+          },
+          subHeader: {
+              fontSize: 11
+          },
+          subSubHeader: {
+              fontSize: 9
+          },
+          undertaking: {
+              fontSize: 10,
+              italics: true
+          },
+          lKey: {
+              lineHeight: 2,
+              fontSize: 11
+          },
+          lValue: {
+              fontSize: 13, 
+                  bold: true
+          },
+          rKey: {
+              lineHeight: 2,
+              fontSize: 8
+          },
+          rValue: {
+              fontSize: 10,
+              bold: true
+          }
+      },
+      content: [
+        {
+          margin: [-38, -38, -38, -38],
+          tableBorder: [false, false, false, false],
+          table: {
+            widths: ['*', 240],
+            border: [ false, false, false, false ],
+            body: [
+                    [
+                      {
+                        border: [false, false, true, false],
+                        style: 'headerRow',
+                        text: [
+                            { text: 'GOA TERRITORY\n', style: 'header' },
+                          { text: 'Tank Lorry Retention Sample\n', style: 'subHeader' },
+                          { text: 'Drawn at Retail Outlet\n\n\n\n\n\n', style: 'subSubHeader' }
+                        ]
+                      },
+                      {
+                        border: [false, false, false, false],
+                        style: 'headerRow',
+                        text: [
+                            { text: 'GOA TERRITORY\n', style: 'header' },
+                          { text: 'Tank Lorry Retention Sample\n', style: 'subHeader' },
+                          { text: 'Drawn at Retail Outlet\n', style: 'subSubHeader' }
+                        ]
+                      }
+                    ],
+                  
+                    [
+                      {
+                        border: [false, false, true, false],
+                        ol: [
+                              {
+                                  text: [ { text: 'Supply Location:\t\t\t', style: 'lKey' }, { text: 'A', style: 'lValue' } ]
+                              },
+                              {
+                                  text: [ { text: 'Territory Office:  \t\t\t', style: 'lKey' }, { text: 'A', style: 'lValue' } ]
+                              },
+                              {
+                                  text: [ { text: 'Supply Location:\t\t\t', style: 'lKey' }, { text: 'A', style: 'lValue' } ]
+                              },
+                              {
+                                  text: [ { text: 'Name of RO:\t\t', style: 'lKey' }, { text: 'A', style: 'lValue' } ]
+                              },
+                              {
+                                  text: [ { text: 'Address of RO:\t', style: 'lKey' }, { text: 'A', style: 'lValue' } ]
+                              },
+                              {
+                                  text: [ { text: 'Oil Company:\t\t', style: 'lKey' }, { text: 'A', style: 'lValue' } ]
+                              },
+                              {
+                                  text: [ { text: 'Product Name: \t', style: 'lKey' }, { text: 'A', style: 'lValue' } ]
+                              },
+                              {
+                                  text: [ { text: 'Source of Sample:\t\t\t', style: 'lKey' }, { text: 'A', style: 'lValue' } ]
+                              },
+                              {
+                                  text: [ { text: 'Tank Lorry Number:  \t\t', style: 'lKey' }, { text: 'A', style: 'lValue' } ]
+                              },
+                              {
+                                  text: [ { text: 'Samples Date & Time:  \t', style: 'lKey' }, { text: 'A', style: 'lValue' } ]
+                              },
+                              {
+                                  text: [ { text: 'Density as Recorded in the Challan:\t', style: 'lKey' }, { text: 'A', style: 'lValue' } ]
+                              },
+                              {
+                                  text: [ { text: 'Density of retention sample: \t\t\t\t', style: 'lKey' }, { text: 'A', style: 'lValue' } ]
+                              },
+                              {
+                                  text: [ { text: 'RO Tank No. & Volume Decanted:\t\t', style: 'lKey' }, { text: 'A', style: 'lValue' } ]
+                              },
+                              {
+                                  text: [ { text: 'Aluminium Container Seal Number:\t', style: 'lKey' }, { text: 'A', style: 'lValue' } ]
+                              },
+                              {
+                                  text: [ { text: 'Wooden Container Seal Number: \t\t', style: 'lKey' }, { text: 'A', style: 'lValue' } ]
+                              },
+                              {
+                                  text: [ { text: 'Invoice Number:\t', style: 'lKey' }, { text: 'A', style: 'lValue' } ]
+                              },
+                              {
+                                  text: [ { text: 'Invoice Date:   \t\t', style: 'lKey' }, { text: 'A', style: 'lValue' } ]
+                              },
+                              {
+                                  text: [ { text: 'Certified that empty containers has been rinsed with the product before drawing of samples in my presence and the sample is retained after proper labelling and sealing.\n\n\n', style: 'undertaking' } ]
+                              },
+                              {
+                                  text: [ { text: 'Signature & Seal:', style: 'lKey' }, { text: '_______________________________', style: 'lValue' } ]
+                              },
+                              {
+                                  text: [ { text: 'Dealer/Manager\'s Name:\t', style: 'lKey' }, { text: 'A', style: 'lValue' } ]
+                              },
+                              {
+                                  text: [ { text: 'Driver\'s Name:\t', style: 'lKey' }, { text: 'A\n\n', style: 'lValue' } ]
+                              },
+                              {
+                                  text: [ { text: 'Signature of Driver:', style: 'lKey' }, { text: '_______________________________', style: 'lValue' } ]
+                              },
+                              {
+                                  text: [ { text: 'Transporter\'s Name:\t', style: 'lKey' }, { text: 'A', style: 'lValue' } ]
+                              },
+                              {
+                                  text: [ { text: 'Place & Date:\t', style: 'lKey' }, { text: 'A', style: 'lValue' } ]
+                              }
+                        ]
+                      },
+                      {
+                        border: [false, false, false, false],
+                        ol: [
+                              {
+                                  text: [ { text: 'Supply Location:  ', style: 'rKey' }, { text: 'A', style: 'rValue' } ]
+                              },
+                              {
+                                  text: [ { text: 'Territory Office:\t', style: 'rKey' }, { text: 'A', style: 'rValue' } ]
+                              },
+                              {
+                                  text: [ { text: 'Supply Location:  ', style: 'rKey' }, { text: 'A', style: 'rValue' } ]
+                              },
+                              {
+                                  text: [ { text: 'Name of RO: \t\t', style: 'rKey' }, { text: 'A', style: 'rValue' } ]
+                              },
+                              {
+                                  text: [ { text: 'Address of RO: \t', style: 'rKey' }, { text: 'A', style: 'rValue' } ]
+                              },
+                              {
+                                  text: [ { text: 'Oil Company:\t\t', style: 'rKey' }, { text: 'A', style: 'rValue' } ]
+                              },
+                              {
+                                  text: [ { text: 'Product Name: \t', style: 'rKey' }, { text: 'A', style: 'rValue' } ]
+                              },
+                              {
+                                  text: [ { text: 'Source of Sample:\t\t\t', style: 'rKey' }, { text: 'A', style: 'rValue' } ]
+                              },
+                              {
+                                  text: [ { text: 'Tank Lorry Number:  \t\t', style: 'rKey' }, { text: 'A', style: 'rValue' } ]
+                              },
+                              {
+                                  text: [ { text: 'Samples Date & Time:  \t', style: 'rKey' }, { text: 'A', style: 'rValue' } ]
+                              },
+                              {
+                                  text: [ { text: 'Density as Recorded in the Challan:\t', style: 'rKey' }, { text: 'A', style: 'rValue' } ]
+                              },
+                              {
+                                  text: [ { text: 'Density of retention sample: \t\t\t\t', style: 'rKey' }, { text: 'A', style: 'rValue' } ]
+                              },
+                              {
+                                  text: [ { text: 'RO Tank No. & Volume Decanted:\t\t', style: 'rKey' }, { text: 'A', style: 'rValue' } ]
+                              },
+                              {
+                                  text: [ { text: 'Aluminium Container Seal Number:\t', style: 'rKey' }, { text: 'A', style: 'rValue' } ]
+                              },
+                              {
+                                  text: [ { text: 'Wooden Container Seal Number: \t\t', style: 'rKey' }, { text: 'A', style: 'rValue' } ]
+                              },
+                              {
+                                  text: [ { text: 'Invoice Number:\t', style: 'rKey' }, { text: 'A', style: 'rValue' } ]
+                              },
+                              {
+                                  text: [ { text: 'Invoice Date:   \t\t', style: 'rKey' }, { text: 'A', style: 'rValue' } ]
+                              },
+                              {
+                                  text: [ { text: 'Certified that empty containers has been rinsed with the product before drawing of samples in my presence and the sample is retained after proper labelling and sealing.\n\n\n', style: 'undertaking' } ]
+                              },
+                              {
+                                  text: [ { text: 'Signature & Seal:', style: 'rKey' }, { text: '_______________________________', style: 'rValue' } ]
+                              },
+                              {
+                                  text: [ { text: 'Dealer/Manager\'s Name:\t', style: 'rKey' }, { text: 'A', style: 'lValue' } ]
+                              },
+                              {
+                                  text: [ { text: 'Driver\'s Name:\t', style: 'rKey' }, { text: 'A\n\n', style: 'rValue' } ]
+                              },
+                              {
+                                  text: [ { text: 'Signature of Driver:', style: 'rKey' }, { text: '_______________________________', style: 'rValue' } ]
+                              },
+                              {
+                                  text: [ { text: 'Transporter\'s Name:\t', style: 'rKey' }, { text: 'A', style: 'rValue' } ]
+                              },
+                              {
+                                  text: [ { text: 'Place & Date:\t', style: 'rKey' }, { text: 'A', style: 'rValue' } ]
+                              }
+                        ]
+                      }
+                    ],
+            ]
+          }
+        },
+        {
+          text: '', pageBreak: 'after'
+        }
+      ]      
+    }
+-->
