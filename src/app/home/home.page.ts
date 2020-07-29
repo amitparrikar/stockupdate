@@ -65,7 +65,7 @@ export class HomePage {
       }
 
       const loading = await this.loadingCtrl.create({
-        message: 'Please Wait'
+        message: 'Composing Stock Update SMS'
       });
 
       const options = {
@@ -81,9 +81,9 @@ export class HomePage {
 
         loading.dismiss();
 
-        setTimeout(() => {
-          alert('Stock Update SMS Sent');
-        }, 0);
+        // setTimeout(() => {
+        //   alert('Stock Update SMS Sent');
+        // }, 0);
 
       }).catch(e => {
 
@@ -95,29 +95,29 @@ export class HomePage {
 
       });
     } else {
-      alert('Please Update Dealer Code!');
+      alert('Please Update Dealer Code in Settings');
     }
   }
 
   composeMessage() {
-    const msSale = Math.floor(this.msSale);
-    const msStock = Math.floor(this.msStock);
-    const hsdSale = Math.floor(this.hsdSale);
-    const hsdStock = Math.floor(this.hsdStock);
-    const spSale = Math.floor(this.spSale);
-    const spStock = Math.floor(this.spStock);
+    const msSale = Math.floor(this.msSale || 0);
+    const msStock = Math.floor(this.msStock || 0);
+    const hsdSale = Math.floor(this.hsdSale || 0);
+    const hsdStock = Math.floor(this.hsdStock || 0);
+    const spSale = Math.floor(this.spSale || 0);
+    const spStock = Math.floor(this.spStock || 0);
 
     let message = `STKSAL ${this.dealerCode}`;
 
-    if (msSale > 0 && msStock > 0) {
+    if (msSale >= 0 && msStock >= 0) {
       message += `/MS${msStock}/${msSale}`;
     }
 
-    if (hsdSale > 0 && hsdStock > 0) {
+    if (hsdSale >= 0 && hsdStock >= 0) {
       message += `/HSD${hsdStock}/${hsdSale}`;
     }
 
-    if (spSale > 0 && spStock > 0) {
+    if (spSale >= 0 && spStock >= 0) {
       message += `/SP${spStock}/${spSale}`;
     }
 

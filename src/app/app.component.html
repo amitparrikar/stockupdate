@@ -17,6 +17,14 @@
             </ion-item>
           </ion-menu-toggle>
           <ion-menu-toggle auto-hide="false">
+            <ion-item [routerDirection]="'root'" [routerLink]="['/pdp']" button>
+              <ion-icon style="transform: rotate(-90deg);" slot="start" name="send"></ion-icon>
+              <ion-label>
+                PDP Update
+              </ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+          <ion-menu-toggle auto-hide="false">
             <ion-item [routerDirection]="'root'" [routerLink]="['/bank-deposit']" button>
               <ion-icon slot="start" name="wallet"></ion-icon>
               <ion-label>

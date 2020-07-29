@@ -16,6 +16,10 @@ const routes: Routes = [
     path: 'settings',
     loadChildren: () => import('./settings/settings.module').then( m => m.SettingsPageModule)
   },
+  {
+    path: 'pdp',
+    loadChildren: () => import('./pdp/pdp.module').then( m => m.PdpPageModule)
+  },
 ];
 
 @NgModule({

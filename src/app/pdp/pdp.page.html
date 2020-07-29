@@ -1,0 +1,90 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-button >
+        <ion-menu-button></ion-menu-button>
+      </ion-button>
+
+    </ion-buttons>
+    <ion-title>Update PDP</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content>
+
+  <div class="pdp-list">
+    <div class="pdp-item" *ngFor="let pdp of tripArray; let pdpIndex=index;">
+        <ion-icon (click)="onRemovePDP(pdpIndex)" class="close-btn" slot="icon-only" name="close"></ion-icon>
+      <P>Trip:  <span class="value">{{pdpIndex+1}}</span></P>
+      <p>Dealer Code:  <span class="value">{{pdp.dealerCode}}</span></p>
+      <p> 
+        <span *ngIf="pdp.msPDP">MS:  <span class="value">{{pdp.msPDP}} KL</span></span> &nbsp;&nbsp;
+        <span *ngIf="pdp.hsdPDP">HSD:  <span class="value">{{pdp.hsdPDP}} KL</span></span> &nbsp;&nbsp;
+        <span *ngIf="pdp.spPDP">Speed:  <span class="value">{{pdp.spPDP}} KL</span></span>  
+      </p>
+      <p>Vehicle:  <span class="value">{{pdp.vehicleNumber}}</span></p>
+    </div>
+  </div>
+
+  <div class="pdp-root">
+
+    <div class="pdp-form">
+      <div class="pdp-item">
+        <div class="key">Dealer Code:</div>
+        <div class="value" style="padding-top: 20px; padding-left: 20px; font-size: 20px;">{{dealerCode}}</div>
+      </div>
+      <div class="pdp-item">
+        <div class="key">Vehicle Number:</div>
+        <div class="value">
+          <ion-item>
+            <ion-input type="text" [(ngModel)]="vehicleNumber"></ion-input>
+          </ion-item>
+        </div>
+      </div>
+      <div class="pdp-item">
+        <div class="key">Petrol:</div>
+        <div class="value">
+          <ion-item>
+            <ion-input class="input-text" type="number" [(ngModel)]="msPDP"></ion-input>
+          </ion-item>
+        </div>
+      </div>
+      <div class="pdp-item">
+        <div class="key">Diesel:</div>
+        <div class="value">
+          <ion-item>
+            <ion-input class="input-text" type="number" [(ngModel)]="hsdPDP"></ion-input>
+          </ion-item>
+        </div>
+      </div>
+      <div class="pdp-item">
+        <div class="key">Speed:</div>
+        <div class="value">
+          <ion-item>
+            <ion-input class="input-text" type="number" [(ngModel)]="spPDP"></ion-input>
+          </ion-item>
+        </div>
+      </div>
+      <div class="footer">
+        <span class="message">
+          Product in Kilo-Litre (KL)
+        </span>        
+        <ion-button medium  color="secondary" (click)="onAddPDP()">Add PDP</ion-button>
+      </div>
+    </div>
+  </div>
+  <div style="text-align: center;">
+    <ion-button medium  color="warning" (click)="onCancelPDP()">Cancel PDP</ion-button>
+    &nbsp;&nbsp;
+    <ion-button medium  color="primary" (click)="onSendSMS()">Send SMS</ion-button>
+  </div>
+  <br>
+  <span class="footer-message">
+     <b>Note:</b> PDP will be updated for <b>{{dateToday}}</b> (Tomorrow)
+  </span>
+  <br>
+  <span class="footer-message">
+    <b>PCVO</b> will be selected if vehicle is not provided.
+  </span>
+</ion-content>

@@ -45,7 +45,7 @@ export class SampleSlipPage implements OnInit, AfterViewInit{
                       text: [
                         { text: 'TERRITORY_NAME\n', style: 'header' },
                         { text: 'Tank Lorry Retention Sample\n', style: 'subHeader' },
-                        { text: 'Drawn at Retail Outlet\n\n\n\n\n\n', style: 'subSubHeader' }
+                        { text: 'Drawn at Retail Outlet\n\n\n\n\n\n\n\n\n', style: 'subSubHeader' }
                       ]
                     }
                   ]
@@ -63,7 +63,7 @@ export class SampleSlipPage implements OnInit, AfterViewInit{
                       text: [
                         { text: 'TERRITORY_NAME\n', style: 'header' },
                         { text: 'Tank Lorry Retention Sample\n', style: 'subHeader' },
-                        { text: 'Drawn at Retail Outlet\n', style: 'subSubHeader' }
+                        { text: 'Drawn at Retail Outlet\n\n\n\n\n\n\n\n\n', style: 'subSubHeader' }
                      ]
                     }
                   ]
@@ -218,8 +218,8 @@ export class SampleSlipPage implements OnInit, AfterViewInit{
                         }
                   ]
                 }
-              ],
-      ]
+              ]
+      ],
     }
   });
 
@@ -348,7 +348,7 @@ export class SampleSlipPage implements OnInit, AfterViewInit{
         'OIL_COMPANY_NAME': data.oilCompany,
         'PRODUCT_NAME': productName,
         'VEHICLE_NUMBER': data.vehicleNumber,
-        'SAMPLE_DATE': decantDate.toLocaleDateString(),
+        'SAMPLE_DATE': decantDate.toLocaleDateString('en-IN'),
         'SAMPLE_TIME': decantDate.toLocaleTimeString(),
         'INVOICE_DENSITY': data[productName.toLowerCase()].invoiceDensity,
         'SAMPLE_DENSITY': data[productName.toLowerCase()].sampleDensity,
@@ -356,12 +356,13 @@ export class SampleSlipPage implements OnInit, AfterViewInit{
         'ALUMINIUM_SEAL': data[`${productName.toLowerCase()}Can`][index].aluminiumBoxSeal,
         'WODDEN_SEAL': data[`${productName.toLowerCase()}Can`][index].woodenBoxSeal,
         'INVOICE_NUMBER': data.invoiceNumber,
-        'INVOICE_DATE': invoiceDate.toLocaleDateString(),
+        'INVOICE_DATE': invoiceDate.toLocaleDateString('en-IN'),
         'DEALER_NAME': data.dealerName,
         'DRIVER_NAME': data.driverName,
         'TRANSPORTER_NAME': data.transportName,
-        'PLACE_DATE': `${data.roAddress.split(',')[1]} on ${decantDate.toLocaleDateString()}`
-    }
+        'PLACE_DATE': `${data.roAddress.split(',')[1]} on ${decantDate.toLocaleDateString('en-IN')}`,
+        'PAGE_INDEX': (index + 1)
+    };
   }
 
   formatHtml(data, template) {
@@ -421,7 +422,7 @@ export class SampleSlipPage implements OnInit, AfterViewInit{
               fontSize: 11
           },
           subSubHeader: {
-              fontSize: 9
+              fontSize: 9,
           },
           undertaking: {
               fontSize: 10,
